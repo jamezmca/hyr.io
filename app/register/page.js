@@ -9,7 +9,6 @@ import CoolLayout from '@/components/CoolLayout';
 import { collection, doc, documentId, getCountFromServer, getDoc, where, query } from 'firebase/firestore';
 import { db } from '@/firebase';
 
-
 export default function RegisterPage() {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')

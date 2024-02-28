@@ -10,10 +10,11 @@ export default function Register(props) {
 
     const searchParams = useSearchParams()
     useEffect(() => {
-        const username = searchParams.get('username')
-        if (!username) { return }
-        setUsername(username)
-    }, [searchParams])
+        if (username) { return }
+        const URLusername = searchParams.get('username')
+        if (!URLusername) { return }
+        setUsername(URLusername)
+    }, [searchParams, setUsername, username])
 
     return (
         <>
