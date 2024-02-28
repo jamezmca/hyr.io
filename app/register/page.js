@@ -2,7 +2,7 @@
 import Main from '@/components/Main'
 import Register from '@/components/Register';
 import { useAuth } from '@/context/AuthContext';
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Plans from '@/components/Plans';
 import CoolLayout from '@/components/CoolLayout';
@@ -63,13 +63,6 @@ export default function RegisterPage() {
         setStep(0)
     }
 
-    const searchParams = useSearchParams()
-    useEffect(() => {
-        const username = searchParams.get('username')
-        if (!username) { return }
-        setUsername(username)
-    }, [searchParams])
-
     // useEffect(() => {
     //     async function fetchUsernames() {
     //         const docRef = doc(db, "meta", "usernames");
@@ -96,11 +89,17 @@ export default function RegisterPage() {
     return (
         <CoolLayout>
             <Main>
-                {(step < 2 && !currentUser) ? (
-                    <Register submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
-                ) : (
-                    <Plans />
-                )}
+                <Suspense loading={(
+                    <div className='flex items-center justify-center flex-col flex-1'>
+                        <i className="fa-solid fa-spinner text-white animate-spin text-4xl sm:text-5xl md:text-6xl"></i>
+                    </div>
+                )}>
+                    {(step < 2 && !currentUser) ? (
+                        <Register submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
+                    ) : (
+                        <Plans />
+                    )}
+                </Suspense>
             </Main>
         </CoolLayout>
     )

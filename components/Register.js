@@ -1,11 +1,19 @@
 import { Poppins } from 'next/font/google';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from './Button';
+import { useSearchParams } from 'next/navigation';
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
 
 export default function Register(props) {
     const { username, setUsername, email, setEmail, password, setPassword, step, goBack, handleSubmit, userExists, submitting } = props
+
+    const searchParams = useSearchParams()
+    useEffect(() => {
+        const username = searchParams.get('username')
+        if (!username) { return }
+        setUsername(username)
+    }, [searchParams])
 
     return (
         <>
