@@ -303,7 +303,7 @@ export default function Application() {
         ),
         blocked: (
             <div className='flex flex-1 flex-col gap-4'>
-                <p className='font-medium text-lg sm:text-xl md:text-2xl'>You've used up your free generations! 🔥</p>
+                <p className='font-medium text-lg sm:text-xl md:text-2xl'>You&apos;ve used up your free generations! 🔥</p>
                 <p>Please upgrade your account to continue using this feature.</p>
                 <p className=''><i>You can also use the Copy Prompt feature to generate a cover letter via your own ChatGPT instance.</i></p>
                 <p className='flex-1'>Upgrading your account also allows you to create and manage numerous additional cover letters! </p>

@@ -18,8 +18,10 @@ export default function SuccessfulCheckoutPage() {
     const router = useRouter()
 
     useEffect(() => {
+        if (!currentUser.uid) { return }
         fetchUserData()
         async function fetchUserData() {
+
             try {
                 const docRef = doc(db, "users", currentUser.uid)
                 const docSnap = await getDoc(docRef)
@@ -36,7 +38,7 @@ export default function SuccessfulCheckoutPage() {
                 console.log('Failed to fetch data', err.message)
             }
         }
-    }, [])
+    }, [currentUser.uid, setUserDataObj])
 
     return (
         <div className='flex flex-1 items-center justify-center flex-col gap-8 pb-20'>
