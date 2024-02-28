@@ -8,10 +8,6 @@ import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
-export const metadata = {
-    title: "Hyr.sh ⋅ Demo",
-};
-
 export default function CVDemo() {
     const [userData, setUserData] = useState({})
     const [resumeSections, setResumeSections] = useState({})

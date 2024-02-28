@@ -1,3 +1,4 @@
+'use client'
 import { useAuth } from '@/context/AuthContext';
 import { Poppins, Open_Sans } from 'next/font/google';
 import React, { useEffect, useState } from 'react'

@@ -101,6 +101,10 @@ const resumeSections = {
     ]
 }
 
+export const metadata = {
+    title: "Hyr.sh ⋅ Demo",
+};
+
 export default function DemoPage() {
 
     return (
