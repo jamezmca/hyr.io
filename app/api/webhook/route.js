@@ -2,7 +2,6 @@ import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import Stripe from "stripe"
 import { adminDB } from "@/firebaseAdmin"
-import { doc, setDoc } from "firebase/firestore"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",

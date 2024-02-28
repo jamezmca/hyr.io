@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig, 'clientDB');
+export const firebaseApp = initializeApp(firebaseConfig);
 
 export const auth = getAuth(firebaseApp)
 export const db = getFirestore(firebaseApp)
