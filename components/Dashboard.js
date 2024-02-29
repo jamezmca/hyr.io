@@ -10,7 +10,7 @@ import Skills from './Layouts/Skills';
 import Projects from './Layouts/Projects';
 import SectionWrapper from './Layouts/SectionWrapper';
 import Login from './Login';
-import { doc, setDoc } from 'firebase/firestore';
+import { deleteField, doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
 import Link from 'next/link';
 import ActionCard from './ActionCard';
@@ -398,7 +398,11 @@ export default function Dashboard() {
         try {
             // write to fire base
             const userRef = doc(db, 'users', currentUser.uid);
-            const res = await setDoc(userRef, { coverLetters: newCoverlettersObj }, { merge: true });
+            const res = await setDoc(userRef, {
+                coverLetters: {
+                    [coverletterToDelete]: deleteField()
+                }
+            }, { merge: true });
             let newDataObj = { ...userData, coverLetters: newCoverlettersObj }
 
             // update local userdata and set to local storage
