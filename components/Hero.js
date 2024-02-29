@@ -15,8 +15,8 @@ export default function Hero() {
 
 
                 <p className='text-base sm:text-lg md:text-xl lg:max-w-[80%] lg:mr-auto '>
-                    Professional resumes and cover letters built for <span className=' font-medium '>landing jobs</span>. Create and share <span className=' font-medium '>job specific</span> resumes & cover letters in seconds with your very own link.
-
+                    {/* Professional resumes and cover letters built for <span className=' font-medium '>landing jobs</span>. Create and share <span className=' font-medium '>job specific</span> resumes & cover letters in seconds with your very own link. */}
+                    Hyr.sh helps you create <span className='font-medium'>personalized and job specific</span> resumes and cover letters in seconds.
                 </p>
                 <RegisterBtn leftAligned />
             </div>
