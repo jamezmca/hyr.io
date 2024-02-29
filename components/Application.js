@@ -404,7 +404,7 @@ export default function Application() {
                     <InputWrapper minHeight={'200px'} value={jobPosting}>
                         <textarea value={jobPosting} placeholder='Paste the job posting in here ...' onChange={(e) => {
                             setJobPosting(e.target.value)
-                        }} className='unstyled resize-none absolute inset-0 flex-1'></textarea>
+                        }} className='unstyled h-full resize-none absolute inset-0 '></textarea>
                     </InputWrapper>
 
                 </ActionCard>
@@ -430,7 +430,7 @@ export default function Application() {
                         })}
                         <textarea placeholder='To Whom it may concern' value={application} onChange={(e) => {
                             setApplication(e.target.value)
-                        }} className='unstyled resize-none absolute inset-0 flex-1'></textarea>
+                        }} className='unstyled h-full resize-none absolute inset-0 '></textarea>
 
                     </div>
                 </ActionCard>
