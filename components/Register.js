@@ -7,15 +7,14 @@ const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300
 
 
 export default function Register(props) {
-    const { username, setUsername, email, setEmail, password, setPassword, step, goBack, handleSubmit, userExists, submitting, error } = props
+    const { username, setUsername, email, setEmail, password, setPassword, step, goBack, handleSubmit, userExists, submitting, error, isVerifying } = props
 
     const searchParams = useSearchParams()
     useEffect(() => {
-        if (username) { return }
         const URLusername = searchParams.get('username')
         if (!URLusername) { return }
         setUsername(URLusername)
-    }, [searchParams, setUsername, username])
+    }, [searchParams, setUsername])
 
     return (
         <>
@@ -49,7 +48,7 @@ export default function Register(props) {
                     {step === 1 && (
                         <button onClick={goBack} className=' w-fit p-4 rounded-full mx-auto bg-white px-8 duration-200 hover:opacity-60'>&larr; Back</button>
                     )}
-                    <Button text={step === 0 ? 'Create account' : 'Continue'} saving={submitting ? 'Submitting' : ''} clickHandler={handleSubmit} />
+                    <Button text={step === 0 ? 'Create account' : 'Continue'} saving={submitting ? 'Submitting' : isVerifying ? 'Verifying username' : ''} clickHandler={handleSubmit} />
                 </div>
             </div>
         </>

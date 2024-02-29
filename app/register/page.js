@@ -88,7 +88,7 @@ export default function RegisterPage() {
                     </div>
                 )}>
                     {(step < 2 && !currentUser) ? (
-                        <Register error={error} submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
+                        <Register isVerifying={isVerifying} error={error} submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
                     ) : (
                         <Plans />
                     )}
