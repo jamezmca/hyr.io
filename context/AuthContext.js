@@ -33,7 +33,8 @@ export function AuthProvider({ children }) {
     async function addUsername(user, username) {
         const usernameRef = doc(db, 'usernames', username);
         const res = await setDoc(usernameRef, {
-            status: 'active'
+            status: 'active',
+            uid: user?.uid
         }, { merge: true });
         // const usernameRef = doc(db, 'meta', 'usernames');
         // const res = await setDoc(usernameRef, {

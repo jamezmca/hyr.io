@@ -2,11 +2,12 @@ import { Poppins } from 'next/font/google';
 import React, { useEffect } from 'react'
 import Button from './Button';
 import { useSearchParams } from 'next/navigation';
+import AuthError from './AuthError';
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
 
 export default function Register(props) {
-    const { username, setUsername, email, setEmail, password, setPassword, step, goBack, handleSubmit, userExists, submitting } = props
+    const { username, setUsername, email, setEmail, password, setPassword, step, goBack, handleSubmit, userExists, submitting, error } = props
 
     const searchParams = useSearchParams()
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function Register(props) {
                 <p className='text-center'>Sign up for free! </p>
             </div>
             <div className='flex flex-col gap-4 text-base sm:text-lg'>
+                {error && (<AuthError errMessage={error} />)}
                 {step === 0 ? (<>
                     <div className={'flex items-stretch border border-solid border-white  rounded-full w-full max-w-[600px] mx-auto bg-white overflow-hidden '}>
                         <div className='flex items-stretch py-4 pl-4'>
@@ -31,7 +33,7 @@ export default function Register(props) {
                         <input value={username} onChange={(e) => setUsername(e.target.value)} className='w-full  flex-1 bg-white outline-none  py-4 ' placeholder='username' />
                         <div className='px-2 rounded-full aspect-square pr-4 grid place-items-center'>
                             {userExists ? (
-                                <i className="fa-solid text-rose-400 fa-xmark"></i>
+                                <i className="fa-solid text-pink-400 fa-xmark"></i>
                             ) : (
                                 <i className="fa-solid text-emerald-400 fa-check"></i>
                             )}

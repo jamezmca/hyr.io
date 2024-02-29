@@ -436,7 +436,7 @@ export default function Dashboard() {
                     <p className='flex-1 capitalize'><b>Name</b> {coverletterToDelete.replaceAll('_', ' ')}</p>
                     <div className='flex items-center gap-4'>
                         <button onClick={() => { setShowModal(null) }} className=' p-4 rounded-full mx-auto bg-white border border-solid border-blue-100 text-blue-400  px-8 duration-200 hover:opacity-60'>Go back</button>
-                        <button onClick={handleDeleteCoverLetter} className=' flex-1 p-4 text-rose-400 rounded-full mx-auto bg-white border border-solid border-rose-400 px-8 duration-200 hover:opacity-60'>Confirm Delete</button>
+                        <button onClick={handleDeleteCoverLetter} className=' flex-1 p-4 text-pink-400 rounded-full mx-auto bg-white border border-solid border-pink-400 px-8 duration-200 hover:opacity-60'>Confirm Delete</button>
                         {/* <Button text={'Upgrade Account ⭐️'} clickHandler={() => { router.push('/admin/billing') }} /> */}
                     </div>
                 </div>
@@ -548,7 +548,7 @@ export default function Dashboard() {
                                     <button onClick={() => {
                                         setCoverletterToDelete(coverLetterName)
                                         setShowModal('deleteCoverletter')
-                                    }} className='flex items-center justify-center gap-4 rounded-full text-xs sm:text-sm text-rose-400 duration-200  absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 group-hover:opacity-100 opacity-0 hover:text-rose-200'>
+                                    }} className='flex items-center justify-center gap-4 rounded-full text-xs sm:text-sm text-pink-400 duration-200  absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 group-hover:opacity-100 opacity-0 hover:text-pink-200'>
                                         <i className="fa-regular fa-trash-can"></i>
                                     </button>
                                     <Link href={'/admin/application?id=' + (applicationMeta?.id || coverLetterName)} className='grid shrink-0 capitalize grid-cols-4 border border-solid border-blue-50 duration-200 hover:bg-blue-50 rounded-lg overflow-hidden '>
@@ -562,7 +562,7 @@ export default function Dashboard() {
                                             <p className='truncate'>{applicationMeta?.status}</p>
                                         </div>
                                         <div className='p-2'>
-                                            <p className={'truncate ' + (application ? 'text-green-400' : 'text-rose-300')}>{application ? 'True' : 'False'}</p>
+                                            <p className={'truncate ' + (application ? 'text-green-400' : 'text-pink-300')}>{application ? 'True' : 'False'}</p>
                                         </div>
                                     </Link>
                                 </div>

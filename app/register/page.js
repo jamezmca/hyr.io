@@ -17,31 +17,47 @@ export default function RegisterPage() {
     const [authenticating, setAuthenticating] = useState(false)
     // const [usernameList, setUsernameList] = useState([])
     const [userExists, setUserExists] = useState(false)
+    const [isVerifying, setIsVerifying] = useState(false)
+    const [error, setError] = useState(null)
 
     const { signup, addUsername, currentUser } = useAuth()
 
-    async function checkUserExists(id) {
-        const snap = await getCountFromServer(query(
-            collection(db, 'usernames'), where(documentId(), '==', id)
-        ))
-        console.log(snap.data())
-        return !!snap.data().count
+    async function isValidUsername(id) {
+        if (id.includes(' ')) { return true }
+        try {
+            const res = await fetch('/api/usernames?username=' + id)
+            const { isUnique } = await res.json()
+            return isUnique
+        } catch (err) {
+            console.log('Failed to check username')
+            return true
+        }
     }
 
     async function handleSubmit() {
         setUserExists(false)
-        if (!username || !email || (step == 1 && (!password || password.length < 8)) || username.length < 5) { return }
+        setError(false)
+        if (!username || !email || isVerifying) { return }
+        if (username.length < 5 || username.includes(' ')) {
+            setError('Username must be more than 5 characters in length and cannot contain any spaces.')
+            return
+        }
+        if ((step == 1 && (!password || password.length < 8))) {
+            setError('Password must be more than 8 characters in length')
+            return
+        }
         if (step === 0) {
-
-            console.log('CHECK USERNAME')
-            const usernameStatus = await checkUserExists(username)
-            if (usernameStatus) {
+            setIsVerifying(true)
+            const usernameStatus = await isValidUsername(username)
+            if (!usernameStatus) {
                 setUserExists(true)
+                setError('This username is taken!')
             } else {
                 console.log('Unique username provided')
                 setUserExists(false)
                 setStep(1)
             }
+            setIsVerifying(false)
             return
         }
         try {
@@ -53,6 +69,7 @@ export default function RegisterPage() {
             setStep(2)
         } catch (err) {
             console.log('Failed to register', err.message)
+            setError(err.message)
         } finally {
             setAuthenticating(false)
         }
@@ -61,29 +78,6 @@ export default function RegisterPage() {
     function goBack() {
         setStep(0)
     }
-
-    // useEffect(() => {
-    //     async function fetchUsernames() {
-    //         const docRef = doc(db, "meta", "usernames");
-    //         const docSnap = await getDoc(docRef);
-
-    //         if (docSnap.exists()) {
-    //             // console.log("Document data:", docSnap.data());
-    //             const cloudUsernames = Object.keys(docSnap.data())
-    //             console.log(cloudUsernames)
-    //             setUsernameList(cloudUsernames)
-    //         } else {
-    //             // docSnap.data() will be undefined in this case
-    //             console.log("No such document!");
-    //         }
-    //     }
-    //     if (usernameList.length != 0) {
-    //         return
-    //     }
-    //     fetchUsernames()
-    // }, [])
-
-
 
     return (
         <CoolLayout>
@@ -94,7 +88,7 @@ export default function RegisterPage() {
                     </div>
                 )}>
                     {(step < 2 && !currentUser) ? (
-                        <Register submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
+                        <Register error={error} submitting={authenticating} userExists={userExists} email={email} password={password} username={username} setUsername={setUsername} setEmail={setEmail} setPassword={setPassword} authenticating={authenticating} handleSubmit={handleSubmit} goBack={goBack} step={step} />
                     ) : (
                         <Plans />
                     )}
