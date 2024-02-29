@@ -4,7 +4,8 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",
 })
-const priceIds = ['price_1OntVFA5WZW9pYpgJuRDy9Ne', 'price_1OocwSA5WZW9pYpgmfj7czX8']
+// const priceIds = ['price_1OntVFA5WZW9pYpgJuRDy9Ne', 'price_1OocwSA5WZW9pYpgmfj7czX8']
+const priceIds = ['price_1OpFAuA5WZW9pYpgbVmrA8Xv', 'price_1OpFAuA5WZW9pYpgbVmrA8Xv']
 
 ////////////////////////// BILLING //////////////////////////
 
