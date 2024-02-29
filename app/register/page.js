@@ -37,7 +37,7 @@ export default function RegisterPage() {
     async function handleSubmit() {
         setUserExists(false)
         setError(false)
-        if (!username || !email || isVerifying) { return }
+        if (!username || !email || isVerifying || authenticating) { return }
         if (username.length < 5 || username.includes(' ')) {
             setError('Username must be more than 5 characters in length and cannot contain any spaces.')
             return
