@@ -56,7 +56,7 @@ export default function Product() {
             </div>
 
             <div className='flex flex-col max-w-[700px] bg-white aspect-video mx-auto w-full'>
-                <iframe className='w-full h-full' src="https://www.youtube.com/embed/MnZ2ObeQZjI?si=Q8SmnjUA22cHn-Si" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe className='w-full h-full' src="https://www.youtube.com/embed/MnZ2ObeQZjI?si=Q8SmnjUA22cHn-Si" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
             </div>
             <div className='flex flex-col gap-10 max-w-[600px] mx-auto w-full'>
                 {extras.map((extra, extraIndex) => {

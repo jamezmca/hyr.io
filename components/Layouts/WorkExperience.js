@@ -71,14 +71,13 @@ export default function WorkExperience(props) {
                                     </button> */}
                                     <p>•</p>
                                     <InputWrapper value={note} multiLine>
-                                        <textarea value={note} onChange={(e) => {
+                                        <textarea id={`work_${experienceIndex}_${noteIndex}`} value={note} onChange={(e) => {
                                             let newVal = e.target.value
                                             let newLined = newVal.endsWith('\n')
-                                            if (newLined) {
-                                                handlAddWorkListItem(experienceIndex, 'notes', e.target.value)
-                                            } else {
-                                                handleUpdateWork(experienceIndex, 'notes', e.target.value, noteIndex)
-                                            }
+                                            let newLineIndex = newLined && `work_${experienceIndex}_${noteIndex + 1}`
+                                            console.log('NEW VALUE: ', e.target.value.replaceAll('\n', ''), newLineIndex)
+                                            handleUpdateWork(experienceIndex, 'notes', e.target.value.replaceAll('\n', ''), noteIndex, newLineIndex)
+
                                         }} placeholder='Enter a description of a task' className='w-full resize-none absolute inset-0 unstyled'></textarea>
                                     </InputWrapper>
                                 </div>

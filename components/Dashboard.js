@@ -79,6 +79,7 @@ export default function Dashboard() {
     const [savingUserDetails, setSavingUserDetails] = useState(false)
     const [savingResume, setSavingResume] = useState(false)
     const [publishingResume, setPublishingResume] = useState(false) // show in modal
+    const [nextFocusElement, setNextFocusElement] = useState(null)
 
     const router = useRouter()
 
@@ -166,18 +167,27 @@ export default function Dashboard() {
 
     // WORK EXPERIENCE CRUD FUNCTIONS
 
-    function handleUpdateWork(index, key, newVal, newValIndex) {
+    function handleUpdateWork(index, key, newVal, newValIndex, newLine) {
         let newInfo
         if (['notes', 'tools'].includes(key)) {
             newInfo = [...resumeSections.work_experience[index][key]]
             newInfo[newValIndex] = newVal
+            if (newLine) {
+                newInfo = [...newInfo.slice(0, newValIndex + 1), '', ...newInfo.slice(newValIndex + 1)]
+            }
         } else {
             newInfo = newVal
         }
         let newObj = { ...resumeSections.work_experience[index], [key]: newInfo }
         let newArray = [...resumeSections.work_experience]
         newArray[index] = newObj
-        setResumeSections({ ...resumeSections, work_experience: newArray })
+        setResumeSections(curr => {
+            return { ...resumeSections, work_experience: newArray }
+        })
+
+        if (newLine) {
+            setNextFocusElement(newLine)
+        }
     }
 
     function handleAddWork() {
@@ -226,11 +236,14 @@ export default function Dashboard() {
 
     // PROJECT CRUD FUNCTIONS
 
-    function handleUpdateProject(index, key, newVal, newValIndex) {
+    function handleUpdateProject(index, key, newVal, newValIndex, newLine) {
         let newInfo
         if (['notes', 'tools'].includes(key)) {
             newInfo = [...resumeSections.projects[index][key]]
             newInfo[newValIndex] = newVal
+            if (newLine) {
+                newInfo = [...newInfo.slice(0, newValIndex + 1), '', ...newInfo.slice(newValIndex + 1)]
+            }
         } else {
             newInfo = newVal
         }
@@ -238,6 +251,9 @@ export default function Dashboard() {
         let newArray = [...resumeSections.projects]
         newArray[index] = newObj
         setResumeSections({ ...resumeSections, projects: newArray })
+        if (newLine) {
+            setNextFocusElement(newLine)
+        }
     }
 
     function handleAddProject() {
@@ -287,16 +303,26 @@ export default function Dashboard() {
     // EDUCATION CRUD FUNCTIONS
 
 
-    function handleUpdateEducation(key, newVal, newValIndex) {
+    function handleUpdateEducation(key, newVal, newValIndex, newLine) {
         let newInfo
         if (['notes', 'tools'].includes(key)) {
             newInfo = [...resumeSections.education[key]]
             newInfo[newValIndex] = newVal
+            console.log(newInfo.slice(newValIndex + 1))
+            if (newLine) {
+                newInfo = [...newInfo.slice(0, newValIndex + 1), '', ...newInfo.slice(newValIndex + 1)]
+            }
         } else {
             newInfo = newVal
         }
         let newObj = { ...resumeSections.education, [key]: newInfo }
-        setResumeSections({ ...resumeSections, education: newObj })
+        setResumeSections(curr => {
+            return { ...resumeSections, education: newObj }
+        })
+        if (newLine) {
+            setNextFocusElement(newLine)
+        }
+
     }
 
     function handlAddEducationListItem(key, newVal) {
@@ -456,6 +482,14 @@ export default function Dashboard() {
         projects: <Projects handleDeleteProjectSection={handleDeleteProjectSection}
             deleteProjectListItem={deleteProjectListItem} resumeSections={resumeSections} handleUpdateWork={handleUpdateProject} handleAddWork={handleAddProject} handlAddWorkListItem={handlAddProjectListItem} />
     }
+
+    useEffect(() => {
+        if (!nextFocusElement) {
+            return
+        }
+        document.getElementById(nextFocusElement) && document.getElementById(nextFocusElement).focus()
+        setNextFocusElement(null)
+    }, [nextFocusElement])
 
     useEffect(() => {
         if (!userDataObj) { return }

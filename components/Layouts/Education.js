@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InputWrapper from '../InputWrapper'
 
 
@@ -15,6 +15,7 @@ import InputWrapper from '../InputWrapper'
 export default function Education(props) {
     const { resumeSections, handleUpdateWork, handleAddWork, handlAddWorkListItem, viewer, deleteEducationListItem } = props
     const experience = resumeSections.education
+
 
     if (viewer) {
         return (
@@ -64,14 +65,12 @@ export default function Education(props) {
                                     </button> */}
                             <p>•</p>
                             <InputWrapper value={note} multiLine>
-                                <textarea value={note} onChange={(e) => {
+                                <textarea id={`education_${noteIndex}`} value={note} onChange={(e) => {
                                     let newVal = e.target.value
                                     let newLined = newVal.endsWith('\n')
-                                    if (newLined) {
-                                        handlAddWorkListItem('notes', e.target.value)
-                                    } else {
-                                        handleUpdateWork('notes', e.target.value, noteIndex)
-                                    }
+                                    let newLineIndex = newLined && `education_${noteIndex + 1}`
+                                    console.log('NEW VALUE: ', e.target.value.replaceAll('\n', ''), newLineIndex)
+                                    handleUpdateWork('notes', e.target.value.replaceAll('\n', ''), noteIndex, newLineIndex)
                                 }} placeholder='Enter a description of your qualification' className='w-full resize-none absolute inset-0 unstyled'></textarea>
                             </InputWrapper>
                         </div>
