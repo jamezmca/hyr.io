@@ -474,8 +474,6 @@ export default function Dashboard() {
         const { userData: localUserData, resumeSections: localResumeSections } = userDataObj
         localUserData && setUserData(localUserData)
 
-        console.log(localResumeSections)
-
         if (localResumeSections?.education && !Array.isArray(localResumeSections?.education)) {
             console.log('Education needs to be updated - obj to arr of objs')
             async function makeEducationArray() {

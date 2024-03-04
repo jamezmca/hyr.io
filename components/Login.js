@@ -38,7 +38,11 @@ export default function Login() {
       <div className='flex flex-col gap-4 text-base sm:text-lg'>
         {error && (<AuthError errMessage={error} />)}
         <input value={email} onChange={(e) => setEmail(e.target.value)} className='flex-1 bg-white rounded-full max-w-[600px] mx-auto w-full outline-none border border-solid border-white p-4 ' placeholder='Email' />
-        <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' className='flex-1 bg-white rounded-full max-w-[600px] mx-auto w-full outline-none border border-solid border-white p-4 ' placeholder='Password' />
+        <input value={password} onKeyPress={event => {
+          if (event.key === 'Enter') {
+            handleSubmit()
+          }
+        }} onChange={(e) => setPassword(e.target.value)} type='password' className='flex-1 bg-white rounded-full max-w-[600px] mx-auto w-full outline-none border border-solid border-white p-4 ' placeholder='Password' />
         <div className={'flex items-stretch gap-4 max-w-[600px] mx-auto w-full duration-200 ' + (authenticating ? ' cursor-not-allowed opacity-60 ' : ' ')}>
           <Button text={'Submit'} saving={authenticating ? 'Submitting' : ''} clickHandler={handleSubmit} />
         </div>
