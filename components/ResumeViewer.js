@@ -30,7 +30,7 @@ export default function ResumeViewer(props) {
         <div className={'flex flex-col gap-4 sm:gap-6 p-4 sm:p-8 ' + opensans.className}>
             <div className='flex flex-col relative'>
                 <p className='text-3xl sm:text-4xl capitalize md:text-5xl w-full o'>{userData.name || placeHolders.name}</p>
-                <Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 opacity-20' >
+                <Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 text-slate-300 hover:text-blue-300 duration-200' >
                     <p >hyr.sh</p>
                 </Link>
             </div>

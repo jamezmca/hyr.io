@@ -3,7 +3,7 @@ import Main from '@/components/Main'
 import Register from '@/components/Register';
 import { useAuth } from '@/context/AuthContext';
 import React, { Suspense, useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Plans from '@/components/Plans';
 import CoolLayout from '@/components/CoolLayout';
 import { collection, doc, documentId, getCountFromServer, getDoc, where, query } from 'firebase/firestore';
@@ -20,7 +20,8 @@ export default function RegisterPage() {
     const [isVerifying, setIsVerifying] = useState(false)
     const [error, setError] = useState(null)
 
-    const { signup, addUsername, currentUser } = useAuth()
+    const { signup, addUsername, currentUser, userDataObj } = useAuth()
+    const router = useRouter()
 
     async function isValidUsername(id) {
         if (id.includes(' ')) { return true }
@@ -78,6 +79,12 @@ export default function RegisterPage() {
     function goBack() {
         setStep(0)
     }
+
+    useEffect(() => {
+        if (userDataObj?.billing?.plan === "Pro" && userDataObj?.billing?.status) {
+            router.push('/admin')
+        }
+    }, [])
 
     return (
         <CoolLayout>

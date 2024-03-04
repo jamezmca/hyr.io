@@ -22,7 +22,7 @@ export default function Skills(props) {
                 {experience.map((note, noteIndex) => {
                     return (
                         <div key={noteIndex} className='flex items-center group/workItem gap-4 relative'>
-                            <p className='w-[140px]'>{note.genre}</p>
+                            <p className='min-w-[140px]'>{note.genre}</p>
                             <p className='font-light'>{note.list}</p>
                         </div>
                     )
@@ -30,7 +30,6 @@ export default function Skills(props) {
             </div>
         )
     }
-
 
     return (
         <>

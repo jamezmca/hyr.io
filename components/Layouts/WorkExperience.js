@@ -29,7 +29,7 @@ export default function WorkExperience(props) {
                                 <p className='unstyled w-full italic ' >{experience.role}</p>
                                 <p className='unstyled text-right italic ' >{experience.location}</p>
                             </div>
-                            {experience.notes.map((note, noteIndex) => {
+                            {experience.notes.filter(val => val !== '').map((note, noteIndex) => {
                                 return (
                                     <div key={noteIndex} className='flex gap-2 font-light relative group/workItemList'>
                                         <p>•</p>

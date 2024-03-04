@@ -619,44 +619,56 @@ export default function Dashboard() {
                         )}
                     </div>
                 )}>
-                    <div className='flex flex-col gap-2 overflow-x-scroll'>
-                        <div className='grid grid-cols-4 shrink-0'>
-                            {['name', 'company', 'status', 'application'].map((label, labelIndex) => {
+                    {(Object.keys(userDataObj?.coverLetters || {}) || []).length > 0 ? (
+                        <div className='flex flex-col gap-2 overflow-x-scroll'>
+                            <div className='grid grid-cols-4 shrink-0'>
+                                {['name', 'company', 'status', 'application'].map((label, labelIndex) => {
+                                    return (
+                                        <div key={labelIndex} className='p-1 capitalize px-2 text-xs sm:text-sm font-medium'>
+                                            <p className='truncate'>{label}</p>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            {(Object.keys(userDataObj?.coverLetters || {}) || []).map((coverLetterName, coverLetterIndex) => {
+                                const coverLetter = userDataObj?.coverLetters?.[coverLetterName] || {}
+                                const { applicationMeta, jobPosting, application } = coverLetter
                                 return (
-                                    <div key={labelIndex} className='p-1 capitalize px-2 text-xs sm:text-sm font-medium'>
-                                        <p className='truncate'>{label}</p>
+                                    <div className='flex flex-col relative group ' key={coverLetterIndex}>
+                                        <button onClick={() => {
+                                            setCoverletterToDelete(coverLetterName)
+                                            setShowModal('deleteCoverletter')
+                                        }} className='flex items-center justify-center gap-4 rounded-full text-xs sm:text-sm text-pink-400 duration-200  absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 group-hover:opacity-100 opacity-0 hover:text-pink-200'>
+                                            <i className="fa-regular fa-trash-can"></i>
+                                        </button>
+                                        <Link href={'/admin/application?id=' + (applicationMeta?.id || coverLetterName)} className='grid shrink-0 capitalize grid-cols-4 border border-solid border-blue-50 duration-200 hover:bg-blue-50 rounded-lg overflow-hidden '>
+                                            <div className='p-2'>
+                                                <p className='truncate'>{applicationMeta?.id}</p>
+                                            </div>
+                                            <div className='p-2'>
+                                                <p className='truncate'>{applicationMeta?.company}</p>
+                                            </div>
+                                            <div className='p-2'>
+                                                <p className='truncate'>{applicationMeta?.status}</p>
+                                            </div>
+                                            <div className='p-2'>
+                                                <p className={'truncate ' + (application ? 'text-green-400' : 'text-pink-300')}>{application ? 'True' : 'False'}</p>
+                                            </div>
+                                        </Link>
                                     </div>
                                 )
                             })}
+
                         </div>
-                        {(Object.keys(userDataObj?.coverLetters || {}) || []).map((coverLetterName, coverLetterIndex) => {
-                            const coverLetter = userDataObj?.coverLetters?.[coverLetterName] || {}
-                            const { applicationMeta, jobPosting, application } = coverLetter
-                            return (
-                                <div className='flex flex-col relative group ' key={coverLetterIndex}>
-                                    <button onClick={() => {
-                                        setCoverletterToDelete(coverLetterName)
-                                        setShowModal('deleteCoverletter')
-                                    }} className='flex items-center justify-center gap-4 rounded-full text-xs sm:text-sm text-pink-400 duration-200  absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 group-hover:opacity-100 opacity-0 hover:text-pink-200'>
-                                        <i className="fa-regular fa-trash-can"></i>
-                                    </button>
-                                    <Link href={'/admin/application?id=' + (applicationMeta?.id || coverLetterName)} className='grid shrink-0 capitalize grid-cols-4 border border-solid border-blue-50 duration-200 hover:bg-blue-50 rounded-lg overflow-hidden '>
-                                        <div className='p-2'>
-                                            <p className='truncate'>{applicationMeta?.id}</p>
-                                        </div>
-                                        <div className='p-2'>
-                                            <p className='truncate'>{applicationMeta?.company}</p>
-                                        </div>
-                                        <div className='p-2'>
-                                            <p className='truncate'>{applicationMeta?.status}</p>
-                                        </div>
-                                        <div className='p-2'>
-                                            <p className={'truncate ' + (application ? 'text-green-400' : 'text-pink-300')}>{application ? 'True' : 'False'}</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                    ) : (
+                        <div className='flex items-center gap-4'>
+                            <p className='p-1 px-2 text-xs sm:text-sm font-medium'>You have 0 active cover letters</p>
+                        </div>
+                    )}
+
+                    <div className='text-blue-400 p-2 border border-solid border-blue-100 rounded-2xl text-xs sm:text-sm flex items-center gap-2'>
+                        <i className="fa-solid fa-circle-info"></i>
+                        <p>Ensure you save your resume before creating a new cover letter!</p>
                     </div>
                 </ActionCard>
                 <GraphicDisplay username={currentUser?.displayName} real handleSaveResume={handleSaveResume}>

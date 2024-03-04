@@ -27,7 +27,7 @@ export default function Projects(props) {
                             <div className='flex items-center  gap-4'>
                                 <p className='unstyled w-full italic ' >{experience.link}</p>
                             </div>
-                            {experience.notes.map((note, noteIndex) => {
+                            {experience.notes.filter(val => val !== '').map((note, noteIndex) => {
                                 return (
                                     <div key={noteIndex} className='flex gap-2 font-light relative group/workItemList'>
                                         <p>•</p>

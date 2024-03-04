@@ -22,15 +22,14 @@ export default function CVDemo() {
         localResumeSections && setResumeSections(localResumeSections)
     }, [])
 
-    console.log(userData)
-    console.log(resumeSections)
     if (!Object.keys(userData).length || !Object.keys(resumeSections).length) {
         return (
             <CoolLayout>
                 <Main>
                     <div className='flex flex-1 items-center justify-center flex-col gap-4'>
                         <h2 className={'text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center  ' + poppins.className}> <span className='blueGradient'>Umm...</span></h2>
-                        <p className='text-center text-blue-400'>No resume found :0</p>
+                        <p className='text-center text-blue-400 max-w-[400px] mx-auto w-full'>No resume found :0<br />Don't forget to save your resume and user details!</p>
+
                     </div>
                 </Main>
             </CoolLayout>
