@@ -32,14 +32,16 @@ const completionSteps = [
 
 const sectionTemplates = {
     bio: '',
-    education: {
-        instituion: '',
-        qualification: '',
-        startDate: '',
-        endDate: '',
-        location: '',
-        notes: ['']
-    },
+    education: [
+        {
+            institution: '',
+            qualification: '',
+            startDate: '',
+            endDate: '',
+            location: '',
+            notes: ['']
+        }
+    ],
     work_experience: [
         {
             company: '',
@@ -71,7 +73,7 @@ export default function Dashboard() {
     let defaultUserData = { name: '', email: '', website: '', location: '' }
     const [userData, setUserData] = useState(defaultUserData)
     const [changedData, setChangedData] = useState(false)
-    const [resumeSections, setResumeSections] = useState([])
+    const [resumeSections, setResumeSections] = useState({})
     const [addSection, setAddSection] = useState(false)
     const [showModal, setShowModal] = useState(null)
     const [coverletterToDelete, setCoverletterToDelete] = useState('')
@@ -303,45 +305,62 @@ export default function Dashboard() {
     // EDUCATION CRUD FUNCTIONS
 
 
-    function handleUpdateEducation(key, newVal, newValIndex, newLine) {
+    function handleUpdateEducation(index, key, newVal, newValIndex, newLine) {
         let newInfo
         if (['notes', 'tools'].includes(key)) {
-            newInfo = [...resumeSections.education[key]]
+            newInfo = [...resumeSections.education[index][key]]
             newInfo[newValIndex] = newVal
-            console.log(newInfo.slice(newValIndex + 1))
             if (newLine) {
                 newInfo = [...newInfo.slice(0, newValIndex + 1), '', ...newInfo.slice(newValIndex + 1)]
             }
         } else {
             newInfo = newVal
         }
-        let newObj = { ...resumeSections.education, [key]: newInfo }
+        let newObj = { ...resumeSections.education[index], [key]: newInfo }
+        let newArray = [...resumeSections.education]
+        newArray[index] = newObj
         setResumeSections(curr => {
-            return { ...resumeSections, education: newObj }
+            return { ...resumeSections, education: newArray }
         })
+
         if (newLine) {
             setNextFocusElement(newLine)
         }
 
     }
 
-    function handlAddEducationListItem(key, newVal) {
+    function handleAddEducation() {
+        let newWork = [...resumeSections.education, sectionTemplates.education[0]]
+        setResumeSections({ ...resumeSections, education: newWork })
+    }
+
+    function handleDeleteEducationSection(index) {
+        // deletes a work experience item
+        let newWorkExperienceList = resumeSections.education.filter((val, valIndex) => {
+            return valIndex !== index
+        })
+        setResumeSections(curr => ({ ...curr, education: newWorkExperienceList }))
+    }
+
+    function handlAddEducationListItem(index, key, newVal) {
         let newInfo
         if (!['notes', 'tools'].includes(key)) {
             return
         }
-        newInfo = [...resumeSections.education[key], '']
-        let newObj = { ...resumeSections.education, [key]: newInfo }
-        setResumeSections({ ...resumeSections, education: newObj })
+        newInfo = [...resumeSections.education[index][key], '']
+        let newObj = { ...resumeSections.education[index], [key]: newInfo }
+        let newArray = [...resumeSections.education]
+        newArray[index] = newObj
+        setResumeSections({ ...resumeSections, education: newArray })
     }
 
-    function deleteEducationListItem(itemIndex) {
+    function deleteEducationListItem(workIndex, itemIndex) {
         // deletes a description item
         let newWorkExperienceList = resumeSections.education
-        let newNotesList = newWorkExperienceList.notes.filter((val, valIndex) => {
+        let newNotesList = newWorkExperienceList[workIndex].notes.filter((val, valIndex) => {
             return itemIndex !== valIndex
         })
-        newWorkExperienceList.notes = newNotesList
+        newWorkExperienceList[workIndex].notes = newNotesList
         setResumeSections({ ...resumeSections, education: newWorkExperienceList })
     }
 
@@ -442,6 +461,53 @@ export default function Dashboard() {
         }
     }
 
+    useEffect(() => {
+        if (!nextFocusElement) {
+            return
+        }
+        document.getElementById(nextFocusElement) && document.getElementById(nextFocusElement).focus()
+        setNextFocusElement(null)
+    }, [nextFocusElement])
+
+    useEffect(() => {
+        if (!userDataObj) { return }
+        const { userData: localUserData, resumeSections: localResumeSections } = userDataObj
+        localUserData && setUserData(localUserData)
+
+        console.log(localResumeSections)
+
+        if (localResumeSections?.education && !Array.isArray(localResumeSections?.education)) {
+            console.log('Education needs to be updated - obj to arr of objs')
+            async function makeEducationArray() {
+                let currData = localStorage.getItem('hyr')
+
+                if (currData) {
+                    currData = JSON.parse(currData)
+                } else {
+                    currData = {}
+                }
+
+                let newData = { ...currData, resumeSections: { ...localResumeSections, education: [localResumeSections?.education || sectionTemplates.education] } }
+                try {
+                    setUserDataObj(curr => ({ ...curr, resumeSections: newData.resumeSections }))
+                    localStorage.setItem('hyr', JSON.stringify(newData))
+                    const userRef = doc(db, 'users', currentUser.uid);
+                    const res = await setDoc(userRef, { resumeSections: newData.resumeSections }, { merge: true });
+                    console.log(res)
+                } catch (err) {
+                    console.log('Failed to save data\n', err.message)
+                } finally {
+                }
+                setResumeSections(curr => {
+                    return (newData.resumeSections)
+                })
+            }
+            makeEducationArray()
+        } else {
+            localResumeSections && setResumeSections(localResumeSections)
+        }
+    }, [userDataObj])
+
     const modalContent = {
         coverletters: (
             <div className='flex flex-1 flex-col gap-4'>
@@ -476,27 +542,14 @@ export default function Dashboard() {
 
     const sections = {
         bio: <Bio val={resumeSections.bio} setVal={handleUpdateBio} handleDeleteSection={handleDeleteSection} />,
-        education: <Education deleteEducationListItem={deleteEducationListItem} resumeSections={resumeSections} handleUpdateWork={handleUpdateEducation} handlAddWorkListItem={handlAddEducationListItem} />,
+        education: <Education handleDeleteEducationSection={handleDeleteEducationSection} handleAddWork={handleAddEducation} deleteEducationListItem={deleteEducationListItem} resumeSections={resumeSections} handleUpdateWork={handleUpdateEducation} handlAddWorkListItem={handlAddEducationListItem} />,
         work_experience: <WorkExperience deleteWorkListItem={deleteWorkListItem} handleDeleteWorkSection={handleDeleteWorkSection} resumeSections={resumeSections} handleUpdateWork={handleUpdateWork} handleAddWork={handleAddWork} handlAddWorkListItem={handlAddWorkListItem} />,
         skills: <Skills deleteSkillsRow={deleteSkillsRow} handleAddWork={handleAddSkillset} resumeSections={resumeSections} handleUpdateSkills={handleUpdateSkills} handleUpdateGenre={handleUpdateGenre} />,
         projects: <Projects handleDeleteProjectSection={handleDeleteProjectSection}
             deleteProjectListItem={deleteProjectListItem} resumeSections={resumeSections} handleUpdateWork={handleUpdateProject} handleAddWork={handleAddProject} handlAddWorkListItem={handlAddProjectListItem} />
     }
 
-    useEffect(() => {
-        if (!nextFocusElement) {
-            return
-        }
-        document.getElementById(nextFocusElement) && document.getElementById(nextFocusElement).focus()
-        setNextFocusElement(null)
-    }, [nextFocusElement])
 
-    useEffect(() => {
-        if (!userDataObj) { return }
-        const { userData: localUserData, resumeSections: localResumeSections } = userDataObj
-        localUserData && setUserData(localUserData)
-        localResumeSections && setResumeSections(localResumeSections)
-    }, [userDataObj])
 
     return (
         <>
@@ -610,9 +663,14 @@ export default function Dashboard() {
                 </ActionCard>
                 <GraphicDisplay username={currentUser?.displayName} real handleSaveResume={handleSaveResume}>
                     <div className={'flex flex-col gap-4 sm:gap-6 p-4 flex-1 sm:p-8 relative  ' + opensans.className}>
-                        <button onClick={handleSaveResume} className='flex absolute top-4 right-4 sm:top-8 sm:right-8 items-center justify-center gap-4 border border-solid border-blue-100  px-4 py-2 rounded-full text-xs sm:text-sm text-blue-400 duration-200 hover:opacity-50'>
-                            <p className=''>{savingResume ? 'Saving' : 'Save'}</p>
-                        </button>
+                        <div className='flex items-center gap-2 sm:gap-4 absolute top-4 right-4 sm:top-8 sm:right-8'>
+                            <Link href={'/samuel_oak'} target='_blank' className='sm:flex hidden items-center justify-center gap-4 border border-solid border-blue-100  px-4 py-2 rounded-full text-xs sm:text-sm text-blue-400 duration-200 hover:opacity-50'>
+                                <p className=''>Example</p>
+                            </Link>
+                            <button onClick={handleSaveResume} className='flex  items-center justify-center gap-4 border border-solid border-blue-100  px-4 py-2 rounded-full text-xs sm:text-sm text-blue-400 duration-200 hover:opacity-50'>
+                                <p className=''>{savingResume ? 'Saving' : 'Save'}</p>
+                            </button>
+                        </div>
                         <p className='text-3xl sm:text-4xl capitalize md:text-5xl w-full o'>{userData.name || placeHolders.name}</p>
                         {Object.keys(userData).reduce((acc, curr) => acc ? acc : !!userData[curr], false) && (<div className={'flex items-center justify-between gap-4 overflow-scroll'} >
                             {Object.keys(userData).filter(key => (userData[key] && key !== 'name')).map((userKey, userKeyIndex) => {

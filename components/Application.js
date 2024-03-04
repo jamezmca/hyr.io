@@ -154,7 +154,7 @@ export default function Application() {
             return
         }
 
-        if (apiCalls < 3) {
+        if (apiCalls < 6) {
             // open up the modal and let people know this is one of their free uses, ask to confirm and if they say yes, then go 
             setShowModal('confirmed')
             return
@@ -260,6 +260,7 @@ export default function Application() {
             return order.indexOf(a) - order.indexOf(b)
         })
     }
+
 
     if (!applicationMeta.id) {
         return (

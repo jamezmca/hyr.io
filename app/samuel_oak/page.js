@@ -10,7 +10,7 @@ const userData = {
 }
 
 const resumeSections = {
-    "education": {
+    "education": [{
         "institution": "Kanto University",
         "location": "Cerulean City, Kanto Region",
         "notes": [
@@ -19,9 +19,8 @@ const resumeSections = {
         ],
         "endDate": "May 2015 - Mar 2019",
         "qualification": "Ph.D. in Pokémon Studies",
-        "instituion": "",
         "startDate": ""
-    },
+    }],
     "bio": "Hello there! I'm Professor Oak, a renowned Pokémon researcher known for my work in the field of Pokémon behavior and habitats. I'm dedicated to understanding the mysteries of Pokémon and guiding young trainers on their journey to become Pokémon Masters.",
     "work_experience": [
         {
@@ -110,7 +109,7 @@ export default function DemoPage() {
     return (
         <BoringLayout>
             <main className='max-w-[1200px] mx-auto flex flex-col w-full p-4 sm:p-8'>
-                <ResumeViewer userData={userData} resumeSections={resumeSections} demo/>
+                <ResumeViewer userData={userData} resumeSections={resumeSections} demo />
             </main>
         </BoringLayout>
     )
