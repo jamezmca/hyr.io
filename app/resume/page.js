@@ -28,7 +28,7 @@ export default function CVDemo() {
                 <Main>
                     <div className='flex flex-1 items-center justify-center flex-col gap-4'>
                         <h2 className={'text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center  ' + poppins.className}> <span className='blueGradient'>Umm...</span></h2>
-                        <p className='text-center text-blue-400 max-w-[400px] mx-auto w-full'>No resume found :0<br />Don't forget to save your resume and user details!</p>
+                        <p className='text-center text-blue-400 max-w-[400px] mx-auto w-full'>No resume found :0<br />Don&apos;t forget to save your resume and user details!</p>
 
                     </div>
                 </Main>
