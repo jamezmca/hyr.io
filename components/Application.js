@@ -420,7 +420,7 @@ export default function Application() {
                             </div>
                             <p className=''>{copied ? 'Successful 🔥 ' : 'Copy Prompt'}</p>
                         </button>
-                        <Button text={'Generate'} clickHandler={() => generateCoverLetter('ai')} sm icon={<i className="fa-solid fa-lock text-amber-300"></i>} />
+                        <Button text={isResponding ? 'Loading' : 'Generate'} clickHandler={() => generateCoverLetter('ai')} sm icon={<i className="fa-solid fa-lock text-amber-300"></i>} />
                     </div>
                 )}>
                     <div className='flex flex-col relative min-h-[200px]'>
