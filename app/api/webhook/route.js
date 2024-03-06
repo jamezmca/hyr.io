@@ -3,10 +3,10 @@ import { headers } from "next/headers"
 import Stripe from "stripe"
 import { adminDB } from "@/firebaseAdmin"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY, {
     apiVersion: "2023-10-16",
 })
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+const webhookSecret = process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET
 
 ////////////////////////// WEBHOOK //////////////////////////
 export async function GET(request) {

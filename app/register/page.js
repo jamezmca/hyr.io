@@ -84,7 +84,7 @@ export default function RegisterPage() {
         if (userDataObj?.billing?.plan === "Pro" && userDataObj?.billing?.status) {
             router.push('/admin')
         }
-    }, [])
+    }, [router, userDataObj?.billing?.plan, userDataObj?.billing?.status])
 
     return (
         <CoolLayout>

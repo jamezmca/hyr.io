@@ -5,7 +5,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 // app/api/route.js 👈🏽
 import OpenAI from "openai"
 
-const OPENAI_APIKEY = process.env.OPENAI_SECRET_KEY
+const OPENAI_APIKEY = process.env.NEXT_PUBLIC_OPENAI_SECRET_KEY
 const openai = new OpenAI({ apiKey: OPENAI_APIKEY })
 
 
