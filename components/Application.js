@@ -134,7 +134,7 @@ export default function Application() {
             return
         }
 
-        if (apiCalls < 6) {
+        if (apiCalls < 3) {
             // open up the modal and let people know this is one of their free uses, ask to confirm and if they say yes, then go 
             setShowModal('confirmed')
             return
