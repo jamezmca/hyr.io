@@ -21,11 +21,11 @@ const extras = [
         description:
             "Generate amazing cover letters in seconds that incorporate relevant information from your selected resume.",
     },
-    {
-        name: "Share your link to land your job.",
-        description:
-            "Share your personal link to allow anyone to view or download your resume and cover letters.",
-    },
+    // {
+    //     name: "Share your link to land your job.",
+    //     description:
+    //         "Share your personal link to allow anyone to view or download your resume and cover letters.",
+    // },
 ];
 
 export default function Product() {
@@ -54,11 +54,23 @@ export default function Product() {
                     Create and manage all your resumes and cover letters in one place, and share them with your personal link.
                 </p>
             </div>
-
-            <div className='flex flex-col max-w-[700px] bg-white aspect-video mx-auto w-full'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-[800px] mx-auto w-full'>
+                {extras.map((extra, extraIndex) => {
+                    return (
+                        <div className="flex p-4 flex-col gap-4 border border-solid border-blue-200 rounded-2xl bg-white dropShadow " key={extraIndex}>
+                            <p className='text-xs text-slate-400 sm:text-sm'>Step 0{extraIndex + 1}</p>
+                            <h4 className={'text-base sm:text-lg font-medium '}>{extra.name}</h4>
+                            <p className='text-slate-600'>{extra.description}</p>
+                        </div>
+                    )
+                })}
+            </div>
+            <div className='flex flex-col max-w-[800px] bg-white aspect-video mx-auto w-full'>
                 <iframe className='w-full h-full' src="https://www.youtube.com/embed/MnZ2ObeQZjI?si=Q8SmnjUA22cHn-Si" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
             </div>
-            <div className='flex flex-col gap-10 max-w-[600px] mx-auto w-full'>
+
+
+            {/* <div className='flex flex-col gap-10 max-w-[600px] mx-auto w-full'>
                 {extras.map((extra, extraIndex) => {
                     return (
                         <div className="flex items-stretch gap-8" key={extraIndex}>
@@ -70,7 +82,7 @@ export default function Product() {
                         </div>
                     )
                 })}
-            </div>
+            </div> */}
             {/* <div
                 className="flex flex-col gap-8 border-l-[1.5px] border-solid border-white   my-12 sm:my-16 md:my-20"
             >

@@ -27,7 +27,7 @@ const opensans = Open_Sans({
 const completionSteps = [
     ['Complete your resume', 'fa-solid fa-pen-to-square', 'Fill out your resume in the display below by adding all the sections you feel relevant to your experience; remember to keep your resume to approximately 1 page in length. You can view your resume by selecting the PDF Viewer button beneath, and can print the web page to a PDF that you can save to your local device. Be sure to adjust the print scale to get the perfect PDF fit.'],
     ['Create a cover letter', 'fa-solid fa-scroll', 'Once you have completed your resume, create a new cover letter, completing all the details relevant to the job application. Once you have added in the details in addition to pasting in the job application, you can generate your perfect job specific cover letter and make any final adjustments you feel necessary.'],
-    ['Share your link', 'fa-solid fa-share', 'With your resume complete and saved, you can choose to publish your resume and have a live version at your special link. You can share this link with anyone!']
+    // ['Share your link', 'fa-solid fa-share', 'With your resume complete and saved, you can choose to publish your resume and have a live version at your special link. You can share this link with anyone!']
 ]
 
 const sectionTemplates = {
@@ -99,17 +99,13 @@ export default function Dashboard() {
 
     async function handleSaveDetails() {
         if (savingUserDetails) { return }
-        let currData = localStorage.getItem('hyr')
-        if (currData) {
-            currData = JSON.parse(currData)
-        } else {
-            currData = {}
-        }
+
         try {
             setSavingUserDetails(true)
-            let newData = { ...currData, userData }
+            let newData = { ...userDataObj, userData }
             localStorage.setItem('hyr', JSON.stringify(newData))
             setChangedData(false)
+            setUserDataObj(newData)
             const userRef = doc(db, 'users', currentUser.uid);
             const res = await setDoc(userRef, { userData }, { merge: true });
             console.log(res)
@@ -121,13 +117,7 @@ export default function Dashboard() {
     }
 
     function handleCancelDetails() {
-        let currData = localStorage.getItem('hyr')
-        let currUserData
-        if (currData) {
-            currUserData = JSON.parse(currData).userData || defaultUserData
-        } else {
-            currUserData = defaultUserData
-        }
+        let currUserData = userDataObj.userData || defaultUserData
         setUserData(currUserData)
         setChangedData(false)
     }
@@ -394,18 +384,9 @@ export default function Dashboard() {
 
     async function handleSaveResume() {
         if (savingResume) { return }
-
-        let currData = localStorage.getItem('hyr')
-
-        if (currData) {
-            currData = JSON.parse(currData)
-        } else {
-            currData = {}
-        }
-
         try {
             setSavingResume(true)
-            let newData = { ...currData, resumeSections }
+            let newData = { ...userDataObj, resumeSections }
             setUserDataObj(curr => ({ ...curr, resumeSections }))
             localStorage.setItem('hyr', JSON.stringify(newData))
             const userRef = doc(db, 'users', currentUser.uid);
@@ -477,15 +458,7 @@ export default function Dashboard() {
         if (localResumeSections?.education && !Array.isArray(localResumeSections?.education)) {
             console.log('Education needs to be updated - obj to arr of objs')
             async function makeEducationArray() {
-                let currData = localStorage.getItem('hyr')
-
-                if (currData) {
-                    currData = JSON.parse(currData)
-                } else {
-                    currData = {}
-                }
-
-                let newData = { ...currData, resumeSections: { ...localResumeSections, education: [localResumeSections?.education || sectionTemplates.education] } }
+                let newData = { ...userDataObj, resumeSections: { ...localResumeSections, education: [localResumeSections?.education || sectionTemplates.education] } }
                 try {
                     setUserDataObj(curr => ({ ...curr, resumeSections: newData.resumeSections }))
                     localStorage.setItem('hyr', JSON.stringify(newData))
@@ -504,7 +477,7 @@ export default function Dashboard() {
         } else {
             localResumeSections && setResumeSections(localResumeSections)
         }
-    }, [userDataObj])
+    }, [currentUser.uid, setUserDataObj, userDataObj])
 
     const modalContent = {
         coverletters: (
@@ -571,12 +544,15 @@ export default function Dashboard() {
                                     <div className={'px-2 aspect-square rounded-full grid duration-200 place-items-center  text-white ' + (stepIndex == instruction ? ' bg-blue-400' : ' bg-blue-200 group-hover:bg-blue-400')}>
                                         <i className={step[1]} />
                                     </div>
-                                    <p className='whitespace-nowrap'>{step[0]}</p>
+                                    <div className='flex flex-col'>
+                                        <p className='text-xs text-left'>Step {stepIndex + 1}</p>
+                                        <p className='whitespace-nowrap'>{step[0]}</p>
+                                    </div>
                                 </button>
                             )
                         })}
                     </div>
-                    {instruction && (<ul className='flex list-disc rounded-2xl border border-solid border-blue-100 p-4 list-inside flex-col  '>
+                    {instruction && (<ul className='flex list-disc rounded-2xl list-inside flex-col  '>
                         {completionSteps[instruction][2].split('. ').map((element, elementIndex) => {
                             return (
                                 <li key={elementIndex} className='text-slate-600'>{element.replaceAll('.', '')}.</li>
@@ -613,9 +589,11 @@ export default function Dashboard() {
                 <ActionCard title={'Cover Letters'} actions={numberOfLetters >= 20 ? null : (
                     <div className='flex items-center gap-4'>
                         {numberOfLetters < 20 && (
-                            <button onClick={handleCreateCoverLetter} className='flex items-center justify-center gap-4 border border-solid border-blue-100  px-4 py-2 rounded-full text-xs sm:text-sm text-blue-400 duration-200 hover:opacity-50'>
-                                <p className=''>Create new</p>
-                            </button>
+                            <Button text={'Create new'} clickHandler={handleCreateCoverLetter} sm icon={<i className="fa-regular fa-pen-to-square"></i>} />
+
+                            // <button onClick={handleCreateCoverLetter} className='flex items-center justify-center gap-4 border border-solid border-blue-100  px-4 py-2 rounded-full text-xs sm:text-sm text-blue-400 duration-200 hover:opacity-50'>
+                            //     <p className=''>Create new</p>
+                            // </button>
                         )}
                     </div>
                 )}>
@@ -666,9 +644,9 @@ export default function Dashboard() {
                         </div>
                     )}
 
-                    <div className='text-blue-400 p-2 border border-solid border-blue-100 rounded-2xl text-xs sm:text-sm flex items-center gap-2'>
+                    <div className=' p-2 border border-solid border-slate-100 text-slate-600 rounded-2xl text-xs sm:text-sm flex items-center gap-2'>
                         <i className="fa-solid fa-circle-info"></i>
-                        <p>Ensure you save your resume before creating a new cover letter!</p>
+                        <p>Ensure that you save your resume before creating a new cover letter!</p>
                     </div>
                 </ActionCard>
                 <GraphicDisplay username={currentUser?.displayName} real handleSaveResume={handleSaveResume}>

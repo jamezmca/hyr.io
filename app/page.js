@@ -11,7 +11,16 @@ export default function Home() {
       <Main>
         <Hero />
         <Product />
-        <RegisterBtn />
+        {/* <div className="flex flex-col gap-4">
+          <div className="mx-auto">
+            <h4
+              className="jetbrains text-center font-bold text-4xl sm:text-5xl md:text-6xl text-slate-800  py-4 sm:py-6 md:py-8"
+            >
+              Sign Up <span className="jetbrains blueGradient">Today</span>
+            </h4>
+          </div>
+          <RegisterBtn />
+        </div> */}
       </Main >
     </CoolLayout>
   );

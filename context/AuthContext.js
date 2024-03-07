@@ -60,19 +60,6 @@ export function AuthProvider({ children }) {
 
                 // if last login local storage matches last login on user, then read from localstorage
                 if (!user) { return }
-                let localUserData = localStorage.getItem('hyr')
-                if (!localUserData) {
-                    // fetch from database & set local data + local metadata
-                    await fetchUserData()
-                    return
-                }
-                localUserData = JSON.parse(localUserData)
-                if (user?.metadata?.lastLoginAt === localUserData?.metadata?.lastLoginAt) {
-                    // read from localstorage
-                    console.log('Used local data')
-                    setUserDataObj(localUserData)
-                    return
-                }
                 // fetch from database & set local data + local metadata
                 await fetchUserData()
 

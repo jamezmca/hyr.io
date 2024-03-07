@@ -5,24 +5,15 @@ import Main from '@/components/Main'
 import ResumeViewer from '@/components/ResumeViewer'
 import React, { useEffect, useState } from 'react'
 import { Poppins } from 'next/font/google';
+import { useAuth } from '@/context/AuthContext'
 
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
 export default function CVDemo() {
-    const [userData, setUserData] = useState({})
-    const [resumeSections, setResumeSections] = useState({})
+    const { userDataObj } = useAuth()
+    const { userData, resumeSections } = userDataObj || {}
 
-    useEffect(() => {
-        if (!localStorage) { return }
-        let localData = localStorage.getItem('hyr')
-        if (!localData) { return }
-        localData = JSON.parse(localData)
-        const { userData: localUserData, resumeSections: localResumeSections } = localData
-        localUserData && setUserData(localUserData)
-        localResumeSections && setResumeSections(localResumeSections)
-    }, [])
-
-    if (!Object.keys(userData).length || !Object.keys(resumeSections).length) {
+    if (!Object.keys(userData || {}).length || !Object.keys(resumeSections || {}).length) {
         return (
             <CoolLayout>
                 <Main>

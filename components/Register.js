@@ -42,7 +42,11 @@ export default function Register(props) {
                 </>) : (<>
                     <p className=' text-center'>Choose a strong password with at least 8 characters.</p>
 
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' className='flex-1 bg-white border border-solid border-white rounded-full max-w-[600px] mx-auto w-full outline-none p-4 ' placeholder='Password' />
+                    <input value={password} onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                            handleSubmit()
+                        }
+                    }} onChange={(e) => setPassword(e.target.value)} type='password' className='flex-1 bg-white border border-solid border-white rounded-full max-w-[600px] mx-auto w-full outline-none p-4 ' placeholder='Password' />
                 </>)}
                 <div className='flex items-stretch gap-4 max-w-[600px] mx-auto w-full'>
                     {step === 1 && (

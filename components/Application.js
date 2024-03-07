@@ -61,28 +61,9 @@ export default function Application() {
         setChangedData(true)
     }
 
-    function handleCancelDetails() {
-        let currData = localStorage.getItem('hyr')
-        let localApplicationMeta
-        if (currData) {
-            localApplicationMeta = JSON.parse(currData).localApplicationMeta || defaultApplicationData
-        } else {
-            localApplicationMeta = defaultApplicationData
-        }
-        setApplicationMeta(localApplicationMeta)
-        setChangedData(false)
-    }
-
     async function handleSaveApplication() { // show modal and get the user to name the application
         if (savingData || isResponding) { return }
         setSavingData(true)
-        let currData = localStorage.getItem('hyr')
-        if (currData) {
-            currData = JSON.parse(currData)
-        } else {
-            currData = {}
-        }
-
         let newCoverLetter = {
             [applicationMeta.id]: {
                 applicationMeta,
@@ -92,12 +73,11 @@ export default function Application() {
         }
 
         try {
-
             let newCoverLettersObj = {
-                ...(currData.coverLetters || {}),
+                ...(userDataObj.coverLetters || {}),
                 ...newCoverLetter
             }
-            let newData = { ...currData, coverLetters: newCoverLettersObj }
+            let newData = { ...userDataObj, coverLetters: newCoverLettersObj }
             localStorage.setItem('hyr', JSON.stringify(newData))
             setUserDataObj(curr => ({ ...curr, coverLetters: newCoverLettersObj }))
             const userRef = doc(db, 'users', currentUser.uid);
