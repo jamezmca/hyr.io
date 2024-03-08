@@ -38,10 +38,10 @@ export async function POST(request) {
                 { price: priceIds[1], quantity: 1 },
             ],
             mode: 'subscription',
-            cancel_url: 'http://localhost:3000/admin/account',
-            success_url: 'http://localhost:3000/admin/success?session_id={CHECKOUT_SESSION_ID}',
-            // cancel_url: 'https://swoldierfitness.com/cancel',
-            // success_url: 'https://swoldierfitness.com/success',
+            // cancel_url: 'http://localhost:3000/admin/account',
+            // success_url: 'http://localhost:3000/admin/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url: 'https://www.hyr.sh.com/admin/account',
+            success_url: 'https://www.hyr.sh.com/admin/success?session_id={CHECKOUT_SESSION_ID}',
         })
         return NextResponse.json(session, { status: 201 })
     } catch (err) {

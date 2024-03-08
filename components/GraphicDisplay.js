@@ -23,7 +23,7 @@ export default function GraphicDisplay(props) {
                         <div key={i} className={"rounded-full aspect-square  bg-indigo-300 " + (real ? ' w-3 sm:w-3.5 ' : ' w-2.5 sm:w-3')} />
                     )
                 })}
-                <p className={'text-xl text-slate-500 pl-2  ' + (real ? ' text-base sm:text-lg font-light ' : ' text-xs sm:text-sm')}>hyr.sh/{username || 'samual_oak'}</p>
+                <p className={'text-xl text-slate-500 pl-2  ' + (real ? ' text-base sm:text-lg font-light ' : ' text-xs sm:text-sm')}>hyr.sh/{username || 'samuel_oak'}</p>
             </div>
             <div className={"flex flex-col bg-white gap-4 flex-1  overflow-scroll relative " + (real ? ' min-h-[400px]' : ' aspect-square')}>
                 {body}
