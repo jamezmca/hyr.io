@@ -11,6 +11,7 @@ export default function Home() {
       <Main>
         <Hero />
         <Product />
+        <RegisterBtn />
         {/* <div className="flex flex-col gap-4">
           <div className="mx-auto">
             <h4
@@ -19,7 +20,6 @@ export default function Home() {
               Sign Up <span className="jetbrains blueGradient">Today</span>
             </h4>
           </div>
-          <RegisterBtn />
         </div> */}
       </Main >
     </CoolLayout>
