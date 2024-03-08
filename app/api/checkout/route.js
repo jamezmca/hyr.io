@@ -40,8 +40,8 @@ export async function POST(request) {
             mode: 'subscription',
             // cancel_url: 'http://localhost:3000/admin/account',
             // success_url: 'http://localhost:3000/admin/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url: 'https://www.hyr.sh.com/admin/account',
-            success_url: 'https://www.hyr.sh.com/admin/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url: 'https://www.hyr.sh/admin/account',
+            success_url: 'https://www.hyr.sh/admin/success?session_id={CHECKOUT_SESSION_ID}',
         })
         return NextResponse.json(session, { status: 201 })
     } catch (err) {
