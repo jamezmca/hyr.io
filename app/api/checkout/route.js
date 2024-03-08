@@ -63,7 +63,7 @@ export async function DELETE(request) {
         )
         // console.log(customer.subscriptions.data[0].id)
         let subscriptionId = customer?.subscriptions?.data?.[0]?.id
-        stripe.subscriptions.del(subscriptionId)
+        await stripe.subscriptions.cancel(subscriptionId)
         return NextResponse.json({}, { status: 200 })
     } catch (err) {
         console.log('Failed to cancel subscription', err.message)
