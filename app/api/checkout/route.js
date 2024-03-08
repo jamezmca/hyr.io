@@ -66,7 +66,7 @@ export async function DELETE(request) {
         stripe.subscriptions.del(subscriptionId)
         return NextResponse.json({}, { status: 200 })
     } catch (err) {
-        console.log('Failed to cancel subscription')
+        console.log('Failed to cancel subscription', err.message)
         return NextResponse.json({}, { status: 500 })
     }
 }
