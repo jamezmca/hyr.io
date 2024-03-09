@@ -37,7 +37,7 @@ export default function Footer() {
                             </Link>
                             <div className='flex items-center gap-2 relative w-fit overflow-hidden after:absolute after:right-full after:bottom-0 after:h-[1px] after:bg-white after:w-full after:duration-200 hover:after:translate-x-full'>
                                 <i className="fa-solid fa-at"></i>
-                                <p >hyr.sh@gmail.com</p>
+                                <p >Ilovehyr.sh@gmail.com</p>
                             </div>
                             {/* <Link href={'/learn'} target='_blank' className='flex items-center gap-2 relative w-fit overflow-hidden after:absolute after:right-full after:bottom-0 after:h-[1px] after:bg-white after:w-full after:duration-200 hover:after:translate-x-full'>
                                 <i className="fa-brands fa-linkedin-in"></i>

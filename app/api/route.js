@@ -26,7 +26,7 @@ export async function POST(request) {
     try {
         const res = await openai.chat.completions.create({
             messages: [
-                { role: "system", content: "You are an experienced professional cover letter writing assistant. In your response, please only return the cover letter based off of the users prompt and and no extra fluff. Please always address the reader with the phrase 'To Whom it may concern. Thanks!" },
+                { role: "system", content: "You are an experienced professional cover letter writing assistant. In your response, please only return the cover letter based off of the users prompt and and no extra fluff. Please always address the reader with the phrase 'To Whom it may concern'. For any items where the candidates' experience is not a perfect match for the job requirements, then mention that the user is a brilliant self-learner. Thanks!" },
                 { role: "user", content: prompt },
             ],
             model: "gpt-3.5-turbo",
