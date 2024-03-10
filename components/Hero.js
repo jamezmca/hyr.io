@@ -12,11 +12,10 @@ export default function Hero() {
             <div className='flex flex-col flex-1 items-center gap-8  text-center lg:text-left mx-auto w-full'>
                 {/* <h2 className={'text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center lg:text-left ' + poppins.className}>Resumes and Cover Letters  <span className='blueGradient'>in one place.</span></h2> */}
                 <h2 className={'text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center lg:text-left ' + poppins.className}><span className='blueGradient'>Superfast</span> Resumes and Cover Letters.</h2>
-
-
                 <p className='text-base sm:text-lg md:text-xl lg:max-w-[80%] lg:mr-auto '>
                     {/* Professional resumes and cover letters built for <span className=' font-medium '>landing jobs</span>. Create and share <span className=' font-medium '>job specific</span> resumes & cover letters in seconds with your very own link. */}
-                    Hyr.sh helps you create <span className='font-medium'>personalized and job specific</span> resumes and cover letters in seconds.
+                    {/* Hyr.sh helps you create <span className='font-medium'>personalized and job specific</span> resumes and cover letters in seconds. */}
+                    Create <span className=''>personalized and job specific</span> resumés and cover letters that <span className='font-medium'> actually land jobs.</span>
                 </p>
                 <RegisterBtn leftAligned />
             </div>

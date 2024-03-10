@@ -8,7 +8,7 @@ import { AuthProvider } from "@/context/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  description: "Superfast Resumes and Cover Letters for serious job hunters.",
+  description: "Hyr.sh helps you build superfast Resumes and Cover Letters that are proven to land jobs.",
 };
 
 export default function RootLayout({ children }) {
