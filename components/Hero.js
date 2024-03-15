@@ -15,7 +15,7 @@ export default function Hero() {
                 <h2 className={'text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-center lg:text-left ' + poppins.className}>Land Your Dream Job <span className='blueGradient'>Superfast</span> </h2>
                 <p className='text-base sm:text-lg md:text-xl lg:max-w-[80%] lg:mr-auto '>
 
-                    With our <span className=''>personalized and job specific</span> resumés and cover letters that <span className='font-medium'> companies love.</span>
+                    Build resumés and cover letters that <span className='font-medium'> companies love.</span>
                 </p>
                 <RegisterBtn leftAligned />
             </div>
