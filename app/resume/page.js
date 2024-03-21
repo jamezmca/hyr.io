@@ -14,6 +14,7 @@ export default function CVDemo() {
     const { userData, resumeSections } = userDataObj || {}
 
     if (!Object.keys(userData || {}).length || !Object.keys(resumeSections || {}).length) {
+        return null
         return (
             <CoolLayout>
                 <Main>
