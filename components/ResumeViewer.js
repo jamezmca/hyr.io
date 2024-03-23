@@ -9,6 +9,7 @@ import Projects from './Layouts/Projects'
 import { Open_Sans } from 'next/font/google'
 import sortResumeSections from '@/utils'
 import Link from 'next/link'
+import { useAuth } from '@/context/AuthContext'
 const opensans = Open_Sans({
     subsets: ["latin"], weight: ['400', '300', '500', '600', '700'], style: ['normal', 'italic'],
 });
@@ -17,6 +18,7 @@ const opensans = Open_Sans({
 
 export default function ResumeViewer(props) {
     const { userData, resumeSections, demo } = props
+    const { isPaid } = useAuth()
 
     const sections = {
         bio: <Bio viewer val={resumeSections.bio} />,
@@ -30,9 +32,9 @@ export default function ResumeViewer(props) {
         <div className={'flex flex-col gap-4 sm:gap-6 p-4 sm:p-8 ' + opensans.className}>
             <div className='flex flex-col relative'>
                 <p className='text-3xl sm:text-4xl capitalize md:text-5xl w-full o'>{userData.name || placeHolders.name}</p>
-                <Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 text-slate-300 hover:text-blue-300 duration-200' >
+                {!isPaid && (<Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 text-slate-300 hover:text-blue-300 duration-200' >
                     <p >hyr.sh</p>
-                </Link>
+                </Link>)}
             </div>
             {Object.keys(userData).reduce((acc, curr) => acc ? acc : !!userData[curr], false) && (<div className={'flex items-center justify-between gap-4 overflow-scroll'} >
                 {Object.keys(userData).filter(key => (userData[key] && key !== 'name')).map((userKey, userKeyIndex) => {
