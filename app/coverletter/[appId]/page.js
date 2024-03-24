@@ -22,7 +22,7 @@ export default function CLViewerPage({ params }) {
     return (
         <BoringLayout>
             <main className={'max-w-[1200px] mx-auto flex flex-col gap-4 w-full p-4 sm:p-8 relative ' + opensans.className}>
-                <p className='absolute top-4 sm:top-8 right-0 opacity-20'>hyr.sh</p>
+                {/* <p className='absolute top-4 sm:top-8 right-0 opacity-20'>hyr.sh</p> */}
                 {coverLetter.split('\n').map((p, pKey) => {
                     return (
                         <p key={pKey}>{p}</p>

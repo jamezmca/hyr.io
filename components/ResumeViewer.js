@@ -1,6 +1,4 @@
-'use client'
 import React from 'react'
-
 import SectionWrapper from './Layouts/SectionWrapper'
 import Bio from './Layouts/Bio'
 import Education from './Layouts/Education'
@@ -10,7 +8,6 @@ import Projects from './Layouts/Projects'
 import { Open_Sans } from 'next/font/google'
 import sortResumeSections from '@/utils'
 import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
 const opensans = Open_Sans({
     subsets: ["latin"], weight: ['400', '300', '500', '600', '700'], style: ['normal', 'italic'],
 });
@@ -18,8 +15,7 @@ const opensans = Open_Sans({
 
 
 export default function ResumeViewer(props) {
-    const { userData, resumeSections, demo } = props
-    const { isPaid } = useAuth()
+    const { userData, resumeSections, demo, isPaid } = props
 
     const sections = {
         bio: <Bio viewer val={resumeSections.bio} />,
@@ -33,7 +29,7 @@ export default function ResumeViewer(props) {
         <div className={'flex flex-col gap-4 sm:gap-6 p-4 sm:p-8 ' + opensans.className}>
             <div className='flex flex-col relative'>
                 <p className='text-3xl sm:text-4xl capitalize md:text-5xl w-full o'>{userData.name || placeHolders.name}</p>
-                {!isPaid && (<Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 text-slate-300 hover:text-blue-300 duration-200' >
+                {(!isPaid || demo) && (<Link target='_blank' href={'/register'} className='absolute top-1/2 -translate-y-1/2 right-0 text-slate-300 hover:text-blue-300 duration-200' >
                     <p >hyr.sh</p>
                 </Link>)}
             </div>

@@ -10,7 +10,7 @@ import { useAuth } from '@/context/AuthContext'
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
 export default function CVDemo() {
-    const { userDataObj } = useAuth()
+    const { userDataObj, isPaid } = useAuth()
     const { userData, resumeSections } = userDataObj || {}
 
     if (!Object.keys(userData || {}).length || !Object.keys(resumeSections || {}).length) {
@@ -31,7 +31,7 @@ export default function CVDemo() {
     return (
         <BoringLayout>
             <main className='max-w-[1200px] mx-auto flex flex-col w-full p-4 sm:p-8'>
-                <ResumeViewer userData={userData} resumeSections={resumeSections} />
+                <ResumeViewer userData={userData} resumeSections={resumeSections} isPaid={isPaid} />
             </main>
         </BoringLayout>
     )
