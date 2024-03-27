@@ -1,4 +1,6 @@
+import Benefits from "@/components/Benefits";
 import CoolLayout from "@/components/CoolLayout";
+import FAQ from "@/components/FAQ";
 import Hero from "@/components/Hero";
 import Main from "@/components/Main";
 import Product from "@/components/Product";
@@ -11,7 +13,9 @@ export default function Home() {
       <Main>
         <Hero />
         <Product />
-        <RegisterBtn />
+        {/* <RegisterBtn /> */}
+        <Benefits />
+        <FAQ />
         {/* <div className="flex flex-col gap-4">
           <div className="mx-auto">
             <h4

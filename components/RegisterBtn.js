@@ -16,7 +16,7 @@ export default function RegisterBtn(props) {
     }
 
     return (
-        <div className={'flex items-stretch text-base sm:text-lg rounded-full w-full  bg-white overflow-hidden ' + (leftAligned ? ' max-w-[600px] mx-auto lg:max-w-[70%] lg:ml-0' : ' max-w-[600px] mx-auto')}>
+        <div className={'flex items-stretch text-base z-[1] sm:text-lg rounded-full w-full  bg-white overflow-hidden ' + (leftAligned ? ' max-w-[600px] mx-auto lg:max-w-[70%] lg:ml-0' : ' max-w-[600px] mx-auto')}>
             <div className='flex items-stretch py-4 pl-4'>
                 <p>hyr.sh/</p>
             </div>

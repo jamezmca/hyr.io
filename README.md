@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## TODO
+
+- landing page copy 
+    - 02 Increased Success Rate
+    - 03 Frequently Asked Questions
+- resume reader (uploader)
+    - if not paid, prompt upgrade
+    - if paid, ask them if they want to import to hyr.sh templates, get them to select a template, and then have an upload & save
+- new resume template
+- if they have multiple resumes, ask which to use (hyr.sh, custom resume)
+- if template param exists, use appropriate template otherwise default
+- have generation error above cover letter (just below title)
+- add in triple dot loading animation . .. ... . .. ...
+- set max height on cover letter viewport
+- on signout set user data to default
+- ensure cover letter username is unique

@@ -1,6 +1,8 @@
 import { Poppins } from 'next/font/google';
 import React from 'react'
 import ActionCard from './ActionCard';
+import Background from './Background';
+import RegisterBtn from './RegisterBtn';
 
 const poppins = Poppins({ subsets: ["latin"], weight: ['400', '100', '200', '300', '500', '600', '700'] });
 
@@ -13,13 +15,15 @@ const completionSteps = [
 const extras = [
     {
         name: "Build your professional resume!",
+        duration: '3mins',
         description:
-            "Easily manage one (or more) professional resumes using our template and save them to your profile.",
+            "Easily create one (or more) professional resumes using our template and save them to your profile.",
     },
     {
-        name: "Create job specific cover letters.",
+        name: "Create cover letters that recruiters love.",
+        duration: '1min',
         description:
-            "Generate amazing cover letters in seconds that incorporate relevant information from your selected resume.",
+            "Our AI content writer can generate job specific and personalized cover letters in seconds.",
     },
     // {
     //     name: "Share your link to land your job.",
@@ -31,8 +35,9 @@ const extras = [
 export default function Product() {
 
     return (
-        <section className='flex flex-col gap-10 p-4' id='about'>
-            <div className="flex flex-col gap-4">
+        <section className='flex flex-col gap-10 p-4 relative' id='about'>
+            {/* <Background type={'white'} /> */}
+            <div className="flex flex-col gap-4 relative z-1">
                 <div
                     className="mx-auto w-[1.5px] h-12 sm:h-16 md:h-20 bg-gradient-to-b from-transparent to-blue-400"
                 />
@@ -45,30 +50,59 @@ export default function Product() {
                     <h4
                         className="jetbrains text-center font-bold text-4xl sm:text-5xl md:text-6xl text-slate-800  py-4 sm:py-6 md:py-8"
                     >
-                        <span className="jetbrains blueGradient">Land</span> Your Job
+                        <span className="jetbrains blueGradient">Create</span> Your Resume
                     </h4>
                 </div>
                 <p
                     className="text-center text-base sm:text-lg md:text-xl max-w-[700px] mx-auto px-8 md:px-0"
                 >
-                    Create and manage all your resumes and cover letters in one place, and share them with your personal link.
+                    Effortlessly create and manage your resumes and cover letters in one place.
                 </p>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-[800px] mx-auto w-full'>
+            {/* <h4 className='text-center font-semibold text-2xl sm:text-3xl md:text-4xl'>Watch the <span className='blueGradient'>video!</span></h4> */}
+            <div className='flex flex-col max-w-[800px] bg-white aspect-video mx-auto w-full relative z-1'>
+                <iframe className='w-full h-full' src="https://www.youtube.com/embed/cJ-sByInnHE?si=5fcBy_HbjwJ4diWw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                {/* <iframe className='w-full h-full' src="https://youtu.be/cJ-sByInnHE" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe> */}
+            </div>
+            {/* <RegisterBtn /> */}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 py-10 mt-10 relative z-1   mx-auto w-full '>
+                <div className='absolute z-[0] top-0 h-full left-1/2 -translate-x-1/2 w-[100vw] bg-white dropShadow'>
+                </div>
                 {extras.map((extra, extraIndex) => {
                     return (
-                        <div className="flex p-4 flex-col gap-4 border border-solid border-blue-200 rounded-2xl bg-white dropShadow " key={extraIndex}>
-                            <p className='text-xs text-slate-400 sm:text-sm'>Step 0{extraIndex + 1}</p>
-                            <h4 className={'text-base sm:text-lg font-medium '}>{extra.name}</h4>
-                            <p className='text-slate-600'>{extra.description}</p>
+                        <div className='flex flex-col  gap-4 md:gap-x-8 relative z-1 ' key={extraIndex}>
+                            <p
+                                className="text-3xl pb-2 font-bold sm:text-4xl md:text-5xl text-slate-300"
+                            >
+                                0{extraIndex + 1}
+                            </p>
+                            <div className='flex flex-col gap-2 flex-1'>
+
+                                <h3 className=" text-2xl font-light sm:text-3xl md:text-4xl">
+                                    {extra.name}
+                                </h3>
+
+                            </div>
+                            <div className="flex flex-col gap-4">
+                                <div className="flex flex-col">
+                                    <p>{extra.description}</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <div className="h-[2px] bg-slate-800  w-8" />
+                                    <p className="text-xs sm:text-sm  ">
+                                        {extra.duration}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                        // <div className="flex p-4 flex-col gap-4 border border-solid border-blue-200 rounded-2xl bg-white dropShadow " key={extraIndex}>
+                        //     <p className='text-xs text-slate-400 sm:text-sm'>Step 0{extraIndex + 1}</p>
+                        //     <h4 className={'text-base sm:text-lg font-medium '}>{extra.name}</h4>
+                        //     <p className='text-slate-600'>{extra.description}</p>
+                        // </div>
                     )
                 })}
             </div>
-            <div className='flex flex-col max-w-[800px] bg-white aspect-video mx-auto w-full'>
-                <iframe className='w-full h-full' src="https://www.youtube.com/embed/MnZ2ObeQZjI?si=Q8SmnjUA22cHn-Si" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-            </div>
-
 
             {/* <div className='flex flex-col gap-10 max-w-[600px] mx-auto w-full'>
                 {extras.map((extra, extraIndex) => {
